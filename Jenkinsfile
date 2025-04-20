@@ -3,13 +3,6 @@ pipeline {
 
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'node:20.15.0-alpine'
-                    reuseNode true
-                }
-            }
-
             steps {
                 sh '''
                     echo "📦 Installing dependencies..."
@@ -18,25 +11,18 @@ pipeline {
                     echo "⚙️ Building the React app..."
                     npm run build
 
-                    echo "✅ Build completed successfully!"
+                    echo "✅ Build completed!"
                 '''
             }
         }
 
         stage('Test') {
-            agent {
-                docker {
-                    image 'node:20.15.0-alpine'
-                    reuseNode true
-                }
-            }
-
             steps {
                 sh '''
                     echo "🧪 Running tests..."
                     npm test -- --watchAll=false
 
-                    echo "✅ All tests passed!"
+                    echo "✅ Tests passed!"
                 '''
             }
         }
